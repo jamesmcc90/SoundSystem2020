@@ -1,7 +1,10 @@
 package com.soundsystem
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.exoplayer2.DefaultRenderersFactory
 import com.google.android.exoplayer2.ExoPlayer
@@ -18,6 +21,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setSupportActionBar(findViewById(R.id.my_toolbar))
 
         initPlayer()
     }
@@ -61,4 +65,20 @@ class MainActivity : AppCompatActivity() {
         player?.stop()
         player?.release()
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+        if (id == R.id.action_devices) {
+            val myIntent = Intent(this, DevicesListActivity::class.java)
+            startActivity(myIntent)
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
 }
